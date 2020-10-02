@@ -7,30 +7,30 @@ import {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
-} from 'graphql';
-import {pubsub, types} from './pubsub'
+} from "graphql"
+import { pubSub, types } from "./pubSub"
 
 export const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'RootQueryType',
+    name: "RootQueryType",
     fields: {
       hello: {
         type: GraphQLString,
         resolve() {
-          return 'world';
+          return "world"
         },
       },
     },
   }),
   subscription: new GraphQLObjectType({
-    name: 'RootSubscriptionType',
+    name: "RootSubscriptionType",
     fields: {
       status: {
         type: GraphQLString,
         subscribe() {
-          return pubsub.asyncIterator(types.STATUS_CHANGED)
+          return pubSub.asyncIterator(types.STATUS_CHANGED)
         },
       },
     },
   }),
-});
+})

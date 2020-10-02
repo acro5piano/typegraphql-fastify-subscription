@@ -1,11 +1,22 @@
 import { buildSchemaSync } from "type-graphql"
-import { Arg, ID, Ctx, Query, Resolver, Subscription } from "type-graphql"
-import { pubsub, types } from "./pubsub"
+import {
+  Arg,
+  PubSub,
+  PubSubEngine,
+  ID,
+  Ctx,
+  Query,
+  Resolver,
+  Subscription,
+} from "type-graphql"
+import { pubSub, types } from "./pubSub"
 
 @Resolver()
 export class MyResolver {
-  @Query()
-  hello(): string {
+  @Query(() => String)
+  async hello(@PubSub() pubsub: PubSubEngine) {
+    // You can inject pubsub engine here
+    await pubsub.publish(types.STATUS_CHANGED, { status: "away" })
     return "world"
   }
 
@@ -18,5 +29,5 @@ export class MyResolver {
 export const schema = buildSchemaSync({
   resolvers: [MyResolver],
   emitSchemaFile: true,
-  pubSub: pubsub,
+  pubSub,
 })
