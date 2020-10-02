@@ -8,7 +8,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import {pubsub} from './pubsub'
+import {pubsub, types} from './pubsub'
 
 export const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -28,16 +28,9 @@ export const schema = new GraphQLSchema({
       status: {
         type: GraphQLString,
         subscribe() {
-          return pubsub.asyncIterator('status')
+          return pubsub.asyncIterator(types.STATUS_CHANGED)
         },
       },
     },
   }),
 });
-
-let count = 0
-setInterval(() => {
-  count++
-  const status = count % 2 === 0 ? 'online' : 'offline'
-  pubsub.publish('status', { status })
-}, 1500)
