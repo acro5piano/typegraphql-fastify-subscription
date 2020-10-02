@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { execute, subscribe } from 'graphql';
-import { schema } from './my-schema';
+import { schema } from './plain-js-schema';
 
 const WS_PORT = 5000;
 

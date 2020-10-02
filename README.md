@@ -9,3 +9,8 @@ yarn install
 yarn start
 ```
 
+
+# Why
+
+- No Apollo server
+- No Express

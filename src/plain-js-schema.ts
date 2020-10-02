@@ -1,3 +1,7 @@
+/*
+ * Plain graphql-js implementation
+ */
+
 import {
   graphql,
   GraphQLSchema,
